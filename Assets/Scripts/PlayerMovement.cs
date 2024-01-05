@@ -6,6 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
 
+    [Header("Bullet Prefab")]
+    [SerializeField] private Bullet bulletprefab;
+
     [Header ("PlayerMovement")]
     [SerializeField] private float thrustSpeed = 2f;
     [SerializeField] private float rotationSpeed = 2f;
@@ -36,6 +39,12 @@ public class PlayerMovement : MonoBehaviour
         {
             turnDirection = 0f;
         }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Shoot();
+        }
+
     }
 
     private void FixedUpdate()
@@ -49,5 +58,12 @@ public class PlayerMovement : MonoBehaviour
         {
             rigidbody2d.AddTorque(turnDirection * rotationSpeed);
         }
+    }
+
+    //instantiate or creating the bullet
+    private void Shoot()
+    {
+        Bullet bullet = Instantiate(bulletprefab, this.transform.position, this.transform.rotation);
+        bullet.Project(this.transform.up);
     }
 }
