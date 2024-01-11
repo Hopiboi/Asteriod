@@ -32,7 +32,7 @@ public class Asteriod : MonoBehaviour
         this.transform.localScale = Vector3.one * this.size;
 
         // more size, more mass
-        rigidBody2D.mass = this.size;
+        rigidBody2D.mass = this.size * 2;
     }
 
 
