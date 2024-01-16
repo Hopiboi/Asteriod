@@ -154,5 +154,5 @@ MonoBehaviour:
   size: 1
   minSize: 0.5
   maxSize: 1.5
-  asteroidSpeed: 15
+  asteroidSpeed: 6
   maxLifeTime: 40

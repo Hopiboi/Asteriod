@@ -37,7 +37,7 @@ public class AsteroidSpawner : MonoBehaviour
 
             Asteriod asteroid = Instantiate(asteriodprefab, spawnPoint, rotation);
             asteroid.size = Random.Range(asteroid.minSize, asteroid.maxSize); // random size
-            asteroid.setTrajectory(rotation * -spawnDirection);
+            asteroid.SetTrajectory(rotation * -spawnDirection); // instantiate and going inside in the circle
         }
     }
 }

@@ -28,19 +28,45 @@ public class Asteriod : MonoBehaviour
         spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
         //random rotation
         this.transform.eulerAngles = new Vector3(0f, 0f, Random.value * 360f);
-        //random scale
+        //random scale, size
         this.transform.localScale = Vector3.one * this.size;
 
-        // more size, more mass
+        // more size, more mass, much heavier
         rigidBody2D.mass = this.size * 2;
     }
 
 
-    public void setTrajectory(Vector2 direction)
+    public void SetTrajectory(Vector2 direction)
     {
         rigidBody2D.AddForce(direction * this.asteroidSpeed);
 
         Destroy(this.gameObject, this.maxLifeTime);
     }
 
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Bullet")
+        {
+            //split condition if its still in range in size range
+            if ((this.size * 0.5f) > this.minSize)
+            {
+                CreatingSplit();
+                CreatingSplit();
+            }
+
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void CreatingSplit()
+    {
+        //position random
+        Vector2 position = this.transform.position;
+        position += Random.insideUnitCircle * 0.5f;
+
+        Asteriod half = Instantiate(this, position, this.transform.rotation);
+        half.size = this.size * 0.5f;
+        half.SetTrajectory(Random.insideUnitCircle.normalized * this.asteroidSpeed);
+    }
 }
