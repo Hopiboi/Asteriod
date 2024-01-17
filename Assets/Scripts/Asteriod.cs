@@ -56,6 +56,7 @@ public class Asteriod : MonoBehaviour
             }
 
             Destroy(this.gameObject);
+            FindObjectOfType<GameManager>().AsteroidDestroy(this); 
         }
     }
 
@@ -65,6 +66,7 @@ public class Asteriod : MonoBehaviour
         Vector2 position = this.transform.position;
         position += Random.insideUnitCircle * 0.5f;
 
+        //instantiate
         Asteriod half = Instantiate(this, position, this.transform.rotation);
         half.size = this.size * 0.5f;
         half.SetTrajectory(Random.insideUnitCircle.normalized * this.asteroidSpeed);

@@ -75,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
             rigidbody2d.angularVelocity = 0f;
 
             this.gameObject.SetActive(false);
+
+            FindObjectOfType<GameManager>().PlayerDead(); // Bad way because it is too slow
         }
     }
 }

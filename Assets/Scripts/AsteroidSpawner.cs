@@ -9,10 +9,10 @@ public class AsteroidSpawner : MonoBehaviour
     [SerializeField] private Asteriod asteriodprefab;
 
     [Header("Spawn Settings")]
-    [SerializeField] private float spawnRate = 2f;
+    [SerializeField] private float spawnRate = 4f;
     [SerializeField] private float spawnDistance = -15f;
     [SerializeField] private int spawnAmount = 2;
-    [SerializeField] private float trajectoryVariance = 2;
+    [SerializeField] private float trajectoryVariance = 15f;
 
 
 
@@ -32,7 +32,7 @@ public class AsteroidSpawner : MonoBehaviour
             Vector3 spawnPoint = this.transform.position + spawnDirection;
 
             //random rotation
-            float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
+            float variance = Random.Range(-trajectoryVariance, trajectoryVariance); //angle
             Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
 
             Asteriod asteroid = Instantiate(asteriodprefab, spawnPoint, rotation);
