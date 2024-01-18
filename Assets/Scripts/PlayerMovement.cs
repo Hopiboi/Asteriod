@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
+    SpriteRenderer spriterenderer;
 
     [Header("Bullet Prefab")]
     [SerializeField] private Bullet bulletprefab;
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
+        spriterenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -43,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Shoot();
+
         }
 
     }
@@ -78,5 +81,16 @@ public class PlayerMovement : MonoBehaviour
 
             FindObjectOfType<GameManager>().PlayerDead(); // Bad way because it is too slow
         }
+    }
+
+    //iframes
+    public void InvicibilityOn()
+    {
+        spriterenderer.color = Color.green;
+    }
+
+    public void ColorReset()
+    {
+        spriterenderer.color = Color.white;
     }
 }
