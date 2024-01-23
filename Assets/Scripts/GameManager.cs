@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,12 +17,23 @@ public class GameManager : MonoBehaviour
     [Header("Score System")]
     [SerializeField] private int score = 0;
 
+    [Header("Stage System")]
+    [SerializeField] public bool _canRestart = false;
+
     [Header("Score and Lives Text")]
     public TMPro.TMP_Text livesText;
     public TMPro.TMP_Text scoreText;
 
     [Header("Game Over Screen")]
     [SerializeField] private GameObject GameOverScreen;
+
+    [Header("Menu Manager")]
+    public MenuManager menumanager;
+
+    private void Update()
+    {
+        GameOverInteractableScreen();
+    }
 
     public void AsteroidDestroy(Asteriod asteroid)
     {
@@ -71,8 +83,6 @@ public class GameManager : MonoBehaviour
         this.player.gameObject.SetActive(true);
         FindObjectOfType<PlayerMovement>().InvicibilityOn();
         Invoke(nameof(InvicibilityOff), 3f);
-
-            
     }
 
     //turning off the invicibility
@@ -85,5 +95,28 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         GameOverScreen.gameObject.SetActive(true);
+        _canRestart = true;
+    }
+
+    private void GameOverInteractableScreen()
+    {
+
+        if (_canRestart == true)
+        {
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _canRestart = false;
+                GameOverScreen.gameObject.SetActive(false);
+                menumanager.Restart();
+            }
+
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                menumanager.MainMenu();
+            }
+
+        }
     }
 }

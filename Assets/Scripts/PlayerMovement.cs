@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
     SpriteRenderer spriterenderer;
+    private Bounds screenBounds;
 
     [Header("Bullet Prefab")]
     [SerializeField] private Bullet bulletprefab;
@@ -16,42 +17,34 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float turnDirection;
     [SerializeField] private bool _thrustMovement;
 
+    [Header("LevelCounter")]
+    [SerializeField] private int levelCounter;
+
+    [Header("Players")]
+    [SerializeField] private int player;
+
     void Awake()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
-        spriterenderer = GetComponent<SpriteRenderer>();
+        spriterenderer = GetComponent<SpriteRenderer>();   
+        
+        if (levelCounter == 2 )
+        {
+            screenBounds = new Bounds();
+            screenBounds.Encapsulate(Camera.main.ScreenToWorldPoint(Vector3.zero));
+            screenBounds.Encapsulate(Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0f)));
+            Debug.Log("Renzy");
+        }
     }
 
     void Update()
     {
-        _thrustMovement = Input.GetKey(KeyCode.W);
-
-        //left
-        if (Input.GetKey(KeyCode.A))
-        {
-            turnDirection = 1.0f;
-        }
-        //right
-        else if (Input.GetKey(KeyCode.D))
-        {
-            turnDirection = -1.0f;
-        }
-        //neutral
-        else
-        {
-            turnDirection = 0f;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            Shoot();
-
-        }
-
+        firstPlayer();
     }
 
     private void FixedUpdate()
     {
+
         if (_thrustMovement)
         {
             rigidbody2d.AddForce(this.transform.up * thrustSpeed);
@@ -61,7 +54,43 @@ public class PlayerMovement : MonoBehaviour
         {
             rigidbody2d.AddTorque(turnDirection * rotationSpeed);
         }
+
+        if (levelCounter == 2)
+        {
+            Warp();
+        }
+
     }
+
+    private void firstPlayer()
+    {
+        if (player == 1)
+        {
+            _thrustMovement = Input.GetKey(KeyCode.W);
+
+            //left
+            if (Input.GetKey(KeyCode.A))
+            {
+                turnDirection = 1.0f;
+            }
+            //right
+            else if (Input.GetKey(KeyCode.D))
+            {
+                turnDirection = -1.0f;
+            }
+            //neutral
+            else
+            {
+                turnDirection = 0f;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Shoot();
+            }
+        }
+    }
+
 
     //instantiate or creating the bullet
     private void Shoot()
@@ -82,6 +111,27 @@ public class PlayerMovement : MonoBehaviour
             FindObjectOfType<GameManager>().PlayerDead(); // Bad way because it is too slow
         }
     }
+
+    private void Warp()
+    {
+        if (rigidbody2d.position.x > screenBounds.max.x + 0.2f)
+        {
+            rigidbody2d.position = new Vector2(screenBounds.min.x - 0.2f, rigidbody2d.position.y);
+        }
+        else if (rigidbody2d.position.x < screenBounds.min.x - 0.2f)
+        {
+            rigidbody2d.position = new Vector2(screenBounds.max.x + 0.2f, rigidbody2d.position.y);
+        }
+        else if (rigidbody2d.position.y > screenBounds.max.y + 0.2f)
+        {
+            rigidbody2d.position = new Vector2(rigidbody2d.position.x, screenBounds.min.y - 0.2f);
+        }
+        else if (rigidbody2d.position.y < screenBounds.min.y - 0.2f)
+        {
+            rigidbody2d.position = new Vector2(rigidbody2d.position.x, screenBounds.max.y + 0.2f);
+        }
+    }
+
 
     //iframes
     public void InvicibilityOn()

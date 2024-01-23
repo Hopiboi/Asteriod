@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Classic.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Wall-less.unity
+    guid: da9cd03016e020449bd8f86ee9570d2f
+  - enabled: 1
+    path: Assets/Scenes/TwoPlayer.unity
+    guid: 58cd0c5d4600823469a203c0281060cd
   m_configObjects: {}
