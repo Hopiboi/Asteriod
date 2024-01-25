@@ -58,6 +58,8 @@ public class Asteriod : MonoBehaviour
             Destroy(this.gameObject);
             FindObjectOfType<GameManager>().AsteroidDestroy(this); 
         }
+
+        // adding if condition to bullet 2
     }
 
     private void CreatingSplit()

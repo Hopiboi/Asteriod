@@ -14,8 +14,6 @@ public class AsteroidSpawner : MonoBehaviour
     [SerializeField] private int spawnAmount = 2;
     [SerializeField] private float trajectoryVariance = 15f;
 
-
-
     void Start()
     {
         //repeating spawn, parameters are (function, the time or the delay, do it everytime passes)

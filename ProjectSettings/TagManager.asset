@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Bullet
   - Asteroid
+  - Bullet 2
+  - Player 2
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - Asteroid
   - Boundaries
   - Invicibility
-  - 
+  - Player 2
   - 
   - 
   - 

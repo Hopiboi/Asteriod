@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        firstPlayer();
+        PlayerControls();
     }
 
     private void FixedUpdate()
@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void firstPlayer()
+    private void PlayerControls()
     {
         if (player == 1)
         {
@@ -89,6 +89,32 @@ public class PlayerMovement : MonoBehaviour
                 Shoot();
             }
         }
+
+        if (player == 2)
+        {
+            _thrustMovement = Input.GetKey(KeyCode.UpArrow);
+
+            //left
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                turnDirection = 1.0f;
+            }
+            //right
+            else if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                turnDirection = -1.0f;
+            }
+            //neutral
+            else
+            {
+                turnDirection = 0f;
+            }
+
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                Shoot();
+            }
+        }
     }
 
 
@@ -108,7 +134,17 @@ public class PlayerMovement : MonoBehaviour
 
             this.gameObject.SetActive(false);
 
-            FindObjectOfType<GameManager>().PlayerDead(); // Bad way because it is too slow
+            if (player == 1)
+            {
+                FindObjectOfType<GameManager>().PlayerDead(); // Bad way because it is too slow
+                Debug.Log("First player has been destroyed");
+            }
+
+            else if (player == 2)
+            {
+                FindObjectOfType<GameManager>().Player2Dead();
+                Debug.Log("Second Player has been destroyed");
+            }
         }
     }
 
@@ -136,7 +172,17 @@ public class PlayerMovement : MonoBehaviour
     //iframes
     public void InvicibilityOn()
     {
-        spriterenderer.color = Color.green;
+
+        if (player == 1)
+        {
+            spriterenderer.color = Color.green;
+        }
+
+        if (player == 2)
+        {
+            spriterenderer.color = Color.blue;
+            Debug.Log("blue");
+        }
     }
 
     public void ColorReset()

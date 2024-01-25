@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Player")]
     [SerializeField] private PlayerMovement player;
+    [SerializeField] private PlayerMovement player2;
     [SerializeField] private float respawnTime = 3f;
     [SerializeField] private int lives = 3;
 
@@ -75,14 +76,48 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void Player2Dead()
+    {
+        this.explosion.transform.position = this.player.transform.position;
+        this.explosion.Play();
+
+       //need to add text code
+
+        if (this.lives <= 0)
+        {
+            GameOver();
+        }
+        else
+        {
+            Invoke(nameof(Respawn2), respawnTime);
+        }
+
+    }
+
     private void Respawn()
     {
         //changing the layer
+        ActiveInvicibility();
+        FindObjectOfType<PlayerMovement>().InvicibilityOn();
+        Invoke(nameof(InvicibilityOff), 3f);
+    }
+
+    private void Respawn2()
+    {
+        //changing the layer
+        ActiveInvicibility();
+        FindObjectOfType<PlayerMovement>().InvicibilityOn();
+        Invoke(nameof(Invicibility2Off), 3f);
+    }
+
+
+    //invicibility code
+    private void ActiveInvicibility()
+    {
         this.player.gameObject.layer = LayerMask.NameToLayer("Invicibility");
         this.player.transform.position = Vector3.zero;
         this.player.gameObject.SetActive(true);
-        FindObjectOfType<PlayerMovement>().InvicibilityOn();
-        Invoke(nameof(InvicibilityOff), 3f);
+        Debug.Log("sad naman if nangyare to");
     }
 
     //turning off the invicibility
@@ -92,6 +127,14 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<PlayerMovement>().ColorReset();
     }
 
+    private void Invicibility2Off()
+    {
+        this.player.gameObject.layer = LayerMask.NameToLayer("Player 2");
+        FindObjectOfType<PlayerMovement>().ColorReset();
+    }
+
+
+    // Game Over Section
     private void GameOver()
     {
         GameOverScreen.gameObject.SetActive(true);
