@@ -121,8 +121,17 @@ public class PlayerMovement : MonoBehaviour
     //instantiate or creating the bullet
     private void Shoot()
     {
-        Bullet bullet = Instantiate(bulletprefab, this.transform.position, this.transform.rotation);
-        bullet.Project(this.transform.up);
+        if (player == 1)
+        {
+            Bullet bullet = Instantiate(bulletprefab, this.transform.position, this.transform.rotation);
+            bullet.Project(this.transform.up);
+        }
+
+        if (player == 2)
+        {
+            //Bullet 2
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -181,7 +190,6 @@ public class PlayerMovement : MonoBehaviour
         if (player == 2)
         {
             spriterenderer.color = Color.blue;
-            Debug.Log("blue");
         }
     }
 

@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
     private void Respawn2()
     {
         //changing the layer
-        ActiveInvicibility();
+        ActiveInvicibility2();
         FindObjectOfType<PlayerMovement>().InvicibilityOn();
         Invoke(nameof(Invicibility2Off), 3f);
     }
@@ -117,7 +117,13 @@ public class GameManager : MonoBehaviour
         this.player.gameObject.layer = LayerMask.NameToLayer("Invicibility");
         this.player.transform.position = Vector3.zero;
         this.player.gameObject.SetActive(true);
-        Debug.Log("sad naman if nangyare to");
+    }
+
+    private void ActiveInvicibility2()
+    {
+        this.player2.gameObject.layer = LayerMask.NameToLayer("Invicibility");
+        this.player2.transform.position = Vector3.zero;
+        this.player2.gameObject.SetActive(true);
     }
 
     //turning off the invicibility
@@ -129,7 +135,7 @@ public class GameManager : MonoBehaviour
 
     private void Invicibility2Off()
     {
-        this.player.gameObject.layer = LayerMask.NameToLayer("Player 2");
+        this.player2.gameObject.layer = LayerMask.NameToLayer("Player 2");
         FindObjectOfType<PlayerMovement>().ColorReset();
     }
 

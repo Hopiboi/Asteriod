@@ -59,6 +59,19 @@ public class Asteriod : MonoBehaviour
             FindObjectOfType<GameManager>().AsteroidDestroy(this); 
         }
 
+        else if (collision.gameObject.tag == "Bullet 2")
+        {
+            //split condition if its still in range in size range
+            if ((this.size * 0.5f) > this.minSize)
+            {
+                CreatingSplit();
+                CreatingSplit();
+            }
+
+            Destroy(this.gameObject);
+            FindObjectOfType<GameManager>().AsteroidDestroy(this);
+        }
+
         // adding if condition to bullet 2
     }
 
