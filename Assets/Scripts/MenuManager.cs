@@ -11,11 +11,6 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject menu;
     [SerializeField] private GameObject controls;
 
-    public void Update()
-    {
-        
-    }
-
     public void MainMenu()
     {
         SceneManager.LoadScene("Main Menu");
@@ -46,7 +41,6 @@ public class MenuManager : MonoBehaviour
     public void QuitLevel()
     {
         Application.Quit();
-        Debug.Log("Quit");
     }
 
     //condition

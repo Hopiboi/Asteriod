@@ -5434,13 +5434,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1972176746}
+  player2: {fileID: 0}
   respawnTime: 3
   lives: 3
+  lives2: 3
   explosion: {fileID: 635524698}
   score: 0
+  score2: 0
   _canRestart: 0
   livesText: {fileID: 329710368}
+  lives2Text: {fileID: 0}
   scoreText: {fileID: 1790938480}
+  score2Text: {fileID: 0}
   GameOverScreen: {fileID: 1716469862}
   menumanager: {fileID: 2721291625183797076, guid: 72522dda39057074a9682d570f94092d, type: 3}
 --- !u!1 &1716469862 stripped
@@ -5718,6 +5723,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 309520252051802858, guid: ce1fc855e58e10b49b5e74e2fdf3117e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240941836747957729, guid: ce1fc855e58e10b49b5e74e2fdf3117e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6822841006148498113, guid: ce1fc855e58e10b49b5e74e2fdf3117e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8645755368502795361, guid: ce1fc855e58e10b49b5e74e2fdf3117e, type: 3}
       propertyPath: m_Pivot.x
       value: 0

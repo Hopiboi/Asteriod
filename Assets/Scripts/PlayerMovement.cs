@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Bullet Prefab")]
     [SerializeField] private Bullet bulletprefab;
+    [SerializeField] private Bullet bulletprefab2;
 
     [Header ("PlayerMovement")]
     [SerializeField] private float thrustSpeed = 2f;
@@ -129,7 +130,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (player == 2)
         {
-            //Bullet 2
+            Bullet bullet2 = Instantiate(bulletprefab2, this.transform.position, this.transform.rotation);
+            bullet2.Project(this.transform.up);
         }
 
     }
@@ -146,13 +148,11 @@ public class PlayerMovement : MonoBehaviour
             if (player == 1)
             {
                 FindObjectOfType<GameManager>().PlayerDead(); // Bad way because it is too slow
-                Debug.Log("First player has been destroyed");
             }
 
             else if (player == 2)
             {
                 FindObjectOfType<GameManager>().Player2Dead();
-                Debug.Log("Second Player has been destroyed");
             }
         }
     }
