@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Stage System")]
     [SerializeField] public bool _canRestart = false;
+    [SerializeField] public bool _firstPlayerDead = false;
+    [SerializeField] public bool _secondPlayerDead = false;
+    [SerializeField] private int levelCounter;
 
     [Header("Score and Lives Text")]
     public TMPro.TMP_Text livesText;
@@ -95,6 +98,7 @@ public class GameManager : MonoBehaviour
         if (this.lives <= 0)
         {
             GameOver();
+
         }
         else
         {
@@ -179,17 +183,24 @@ public class GameManager : MonoBehaviour
     {
         if (_canRestart == true)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _canRestart = false;
-                GameOverScreen.gameObject.SetActive(false);
-                menumanager.Restart();
-            }
-
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                menumanager.MainMenu();
-            }
+            GameOverButtons();
         }
     }
+
+    private void GameOverButtons()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _canRestart = false;
+            GameOverScreen.gameObject.SetActive(false);
+            menumanager.Restart();
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            menumanager.MainMenu();
+        }
+    }
+
 }
+
