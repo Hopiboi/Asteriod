@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private Rigidbody2D rigidbody2D;
+    private Rigidbody2D rigidbody2d;
 
     [Header ("Bullet Settings")]
     [SerializeField] private float bulletSpeed = 400f;
@@ -12,13 +12,13 @@ public class Bullet : MonoBehaviour
 
     void Awake()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
     
     public void Project(Vector2 direction)
     {
-        rigidbody2D.AddForce(direction * this.bulletSpeed);
+        rigidbody2d.AddForce(direction * this.bulletSpeed);
 
         Destroy(this.gameObject, this.maxTimer);
     }

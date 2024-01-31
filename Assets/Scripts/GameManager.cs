@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int lives = 3;
     [SerializeField] private int lives2 = 3;
 
+    [Header("Player")]
+    [SerializeField] public bool _firstPlayerDead = false;
+    [SerializeField] public bool _secondPlayerDead = false;
+
     [Header("Particle System")]
     [SerializeField] private ParticleSystem explosion;
 
@@ -22,8 +26,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Stage System")]
     [SerializeField] public bool _canRestart = false;
-    [SerializeField] public bool _firstPlayerDead = false;
-    [SerializeField] public bool _secondPlayerDead = false;
     [SerializeField] private int levelCounter;
 
     [Header("Score and Lives Text")]
@@ -43,6 +45,8 @@ public class GameManager : MonoBehaviour
         GameOverInteractableScreen();
     }
 
+
+    // add variable points instead of scores to have efficient and more can be used in two players
     public void AsteroidDestroy(Asteriod asteroid)
     {
         this.explosion.transform.position = asteroid.transform.position;
@@ -61,7 +65,7 @@ public class GameManager : MonoBehaviour
             this.score += 25;
         }
 
-       this.score2Text.text = this.score2.ToString();
+       this.scoreText.text = this.score.ToString();
     }
 
     public void AsteroidDestroy2(Asteriod asteroid)
@@ -98,7 +102,7 @@ public class GameManager : MonoBehaviour
         if (this.lives <= 0)
         {
             GameOver();
-
+            _firstPlayerDead = true;
         }
         else
         {
@@ -117,6 +121,7 @@ public class GameManager : MonoBehaviour
         if (this.lives2 <= 0)
         {
             GameOver();
+            _secondPlayerDead = true;
         }
         else
         {
@@ -175,12 +180,22 @@ public class GameManager : MonoBehaviour
     // Game Over Section
     private void GameOver()
     {
+        if (levelCounter <= 2)
+        {
+
+        }
+
+        if (levelCounter == 3)
+        {
+
+        }
         GameOverScreen.gameObject.SetActive(true);
         _canRestart = true;
     }
 
     private void GameOverInteractableScreen()
     {
+
         if (_canRestart == true)
         {
             GameOverButtons();
@@ -193,7 +208,7 @@ public class GameManager : MonoBehaviour
         {
             _canRestart = false;
             GameOverScreen.gameObject.SetActive(false);
-            menumanager.Restart();
+            menumanager.Restart();  
         }
 
         if (Input.GetKeyDown(KeyCode.X))

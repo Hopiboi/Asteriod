@@ -5291,6 +5291,9 @@ MonoBehaviour:
   score: 0
   score2: 0
   _canRestart: 0
+  _firstPlayerDead: 0
+  _secondPlayerDead: 0
+  levelCounter: 2
   livesText: {fileID: 329710368}
   lives2Text: {fileID: 0}
   scoreText: {fileID: 1790938480}
