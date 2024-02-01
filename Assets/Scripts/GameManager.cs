@@ -97,12 +97,11 @@ public class GameManager : MonoBehaviour
         this.lives--;
         this.livesText.text = "x" + this.lives.ToString();
 
-
-        //theory, add a condition when any player died and another player is still alive
         if (this.lives <= 0)
         {
-            GameOver();
             _firstPlayerDead = true;
+            GameOver();
+            Debug.Log(_firstPlayerDead);
         }
         else
         {
@@ -120,8 +119,8 @@ public class GameManager : MonoBehaviour
 
         if (this.lives2 <= 0)
         {
-            GameOver();
             _secondPlayerDead = true;
+            GameOver();
         }
         else
         {
@@ -182,15 +181,23 @@ public class GameManager : MonoBehaviour
     {
         if (levelCounter <= 2)
         {
-
+            if (_firstPlayerDead == true)
+            {
+                GameOverScreen.gameObject.SetActive(true);
+                _canRestart = true;
+                Debug.Log("First Active");
+            }
         }
 
         if (levelCounter == 3)
         {
-
+            if (_firstPlayerDead == true && _secondPlayerDead == true)
+            {
+                GameOverScreen.gameObject.SetActive(true);
+                _canRestart = true;
+                Debug.Log("Second Active");
+            }
         }
-        GameOverScreen.gameObject.SetActive(true);
-        _canRestart = true;
     }
 
     private void GameOverInteractableScreen()

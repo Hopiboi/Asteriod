@@ -34,7 +34,6 @@ public class PlayerMovement : MonoBehaviour
             screenBounds = new Bounds();
             screenBounds.Encapsulate(Camera.main.ScreenToWorldPoint(Vector3.zero));
             screenBounds.Encapsulate(Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0f)));
-            Debug.Log("Renzy");
         }
     }
 

@@ -5287,12 +5287,12 @@ MonoBehaviour:
   respawnTime: 3
   lives: 3
   lives2: 3
+  _firstPlayerDead: 0
+  _secondPlayerDead: 0
   explosion: {fileID: 635524698}
   score: 0
   score2: 0
   _canRestart: 0
-  _firstPlayerDead: 0
-  _secondPlayerDead: 0
   levelCounter: 2
   livesText: {fileID: 329710368}
   lives2Text: {fileID: 0}
@@ -5449,6 +5449,10 @@ PrefabInstance:
     - target: {fileID: 1338332822975128515, guid: f67a5373700aa59428fb81d64e77ffd3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338332822975128527, guid: f67a5373700aa59428fb81d64e77ffd3, type: 3}
+      propertyPath: player
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1338332822975128527, guid: f67a5373700aa59428fb81d64e77ffd3, type: 3}
       propertyPath: levelCounter

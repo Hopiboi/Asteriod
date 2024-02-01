@@ -5436,8 +5436,8 @@ MonoBehaviour:
   player: {fileID: 1972176746}
   player2: {fileID: 1742977746}
   respawnTime: 3
-  lives: 1
-  lives2: 1
+  lives: 3
+  lives2: 3
   _firstPlayerDead: 0
   _secondPlayerDead: 0
   explosion: {fileID: 635524698}
