@@ -11,6 +11,11 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject menu;
     [SerializeField] private GameObject controls;
 
+    private void Update()
+    {
+        MenuCondition();
+    }
+
     public void MainMenu()
     {
         SceneManager.LoadScene("Main Menu");

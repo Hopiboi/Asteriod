@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Player")]
     [SerializeField] private PlayerMovement player;
-    [SerializeField] private PlayerMovement player2;
+    [SerializeField] private PlayerMovement2 player2;
     [SerializeField] private float respawnTime = 3f;
     [SerializeField] private int lives = 3;
     [SerializeField] private int lives2 = 3;
@@ -21,8 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ParticleSystem explosion;
 
     [Header("Score System")]
-    [SerializeField] private int score = 0;
-    [SerializeField] private int score2 = 0;
+    [SerializeField] private int points = 0;
 
     [Header("Stage System")]
     [SerializeField] public bool _canRestart = false;
@@ -54,18 +53,18 @@ public class GameManager : MonoBehaviour
 
         if(asteroid.size < .75f)
         {
-            this.score += 100;
+            this.points += 100;
         }
         else if (asteroid.size < 1.25f)
         {
-            this.score += 50;
+            this.points += 50;
         }
         else
         {
-            this.score += 25;
+            this.points += 25;
         }
 
-       this.scoreText.text = this.score.ToString();
+       this.scoreText.text = this.points.ToString();
     }
 
     public void AsteroidDestroy2(Asteriod asteroid)
@@ -75,18 +74,18 @@ public class GameManager : MonoBehaviour
 
         if (asteroid.size < .75f)
         {
-            this.score2 += 100;
+            this.points += 100;
         }
         else if (asteroid.size < 1.25f)
         {
-            this.score2 += 50;
+            this.points += 50;
         }
         else
         {
-            this.score2 += 25;
+            this.points += 25;
         }
 
-        this.score2Text.text = this.score2.ToString();
+        this.score2Text.text = this.points.ToString();
     }
 
     public void PlayerDead()
@@ -101,7 +100,6 @@ public class GameManager : MonoBehaviour
         {
             _firstPlayerDead = true;
             GameOver();
-            Debug.Log(_firstPlayerDead);
         }
         else
         {
@@ -139,9 +137,8 @@ public class GameManager : MonoBehaviour
 
     private void Respawn2()
     {
-        //changing the layer
         ActiveInvicibility2();
-        FindObjectOfType<PlayerMovement>().InvicibilityOn();
+        FindObjectOfType<PlayerMovement2>().InvicibilityOn();
         Invoke(nameof(Invicibility2Off), 3f);
     }
 
@@ -171,10 +168,8 @@ public class GameManager : MonoBehaviour
     private void Invicibility2Off()
     {
         this.player2.gameObject.layer = LayerMask.NameToLayer("Player 2");
-        FindObjectOfType<PlayerMovement>().ColorReset();
+        FindObjectOfType<PlayerMovement2>().ColorReset();
     }
-
-    //add game over condition to two players
 
     // Game Over Section
     private void GameOver()
@@ -185,7 +180,6 @@ public class GameManager : MonoBehaviour
             {
                 GameOverScreen.gameObject.SetActive(true);
                 _canRestart = true;
-                Debug.Log("First Active");
             }
         }
 
@@ -195,7 +189,6 @@ public class GameManager : MonoBehaviour
             {
                 GameOverScreen.gameObject.SetActive(true);
                 _canRestart = true;
-                Debug.Log("Second Active");
             }
         }
     }

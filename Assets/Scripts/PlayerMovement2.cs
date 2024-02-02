@@ -2,36 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement2 : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
     SpriteRenderer spriterenderer;
-    private Bounds screenBounds;
 
     [Header("Bullet Prefab")]
     [SerializeField] private Bullet bulletprefab;
 
-    [Header ("PlayerMovement")]
+    [Header("PlayerMovement")]
     [SerializeField] private float thrustSpeed = 3f;
     [SerializeField] private float rotationSpeed = .2f;
     [SerializeField] private float turnDirection;
     [SerializeField] private bool _thrustMovement;
 
-    [Header("LevelCounter")]
-    [SerializeField] private int levelCounter;
-
 
     void Awake()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
-        spriterenderer = GetComponent<SpriteRenderer>();   
-        
-        if (levelCounter == 2 )
-        {
-            screenBounds = new Bounds();
-            screenBounds.Encapsulate(Camera.main.ScreenToWorldPoint(Vector3.zero));
-            screenBounds.Encapsulate(Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0f)));
-        }
+        spriterenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -52,24 +41,19 @@ public class PlayerMovement : MonoBehaviour
             rigidbody2d.AddTorque(turnDirection * rotationSpeed);
         }
 
-        if (levelCounter == 2)
-        {
-            Warp();
-        }
-
     }
 
     private void PlayerControls()
     {
-        _thrustMovement = Input.GetKey(KeyCode.W);
+        _thrustMovement = Input.GetKey(KeyCode.UpArrow);
 
         //left
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             turnDirection = 1.0f;
         }
         //right
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.LeftArrow))
         {
             turnDirection = -1.0f;
         }
@@ -79,19 +63,16 @@ public class PlayerMovement : MonoBehaviour
             turnDirection = 0f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             Shoot();
         }
     }
 
-
-    //instantiate or creating the bullet
     private void Shoot()
     {
         Bullet bullet = Instantiate(bulletprefab, this.transform.position, this.transform.rotation);
         bullet.Project(this.transform.up);
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -102,36 +83,14 @@ public class PlayerMovement : MonoBehaviour
             rigidbody2d.angularVelocity = 0f;
 
             this.gameObject.SetActive(false);
-            FindObjectOfType<GameManager>().PlayerDead(); // Bad way because it is too slow
-
-        }
-    }
-
-    private void Warp()
-    {
-        if (rigidbody2d.position.x > screenBounds.max.x + 0.2f)
-        {
-            rigidbody2d.position = new Vector2(screenBounds.min.x - 0.2f, rigidbody2d.position.y);
-        }
-        else if (rigidbody2d.position.x < screenBounds.min.x - 0.2f)
-        {
-            rigidbody2d.position = new Vector2(screenBounds.max.x + 0.2f, rigidbody2d.position.y);
-        }
-        else if (rigidbody2d.position.y > screenBounds.max.y + 0.2f)
-        {
-            rigidbody2d.position = new Vector2(rigidbody2d.position.x, screenBounds.min.y - 0.2f);
-        }
-        else if (rigidbody2d.position.y < screenBounds.min.y - 0.2f)
-        {
-            rigidbody2d.position = new Vector2(rigidbody2d.position.x, screenBounds.max.y + 0.2f);
+            FindObjectOfType<GameManager>().Player2Dead();
         }
     }
 
 
-    //color
     public void InvicibilityOn()
     {
-        spriterenderer.color = Color.green;
+        spriterenderer.color = Color.blue;
     }
 
     public void ColorReset()
@@ -139,3 +98,4 @@ public class PlayerMovement : MonoBehaviour
         spriterenderer.color = Color.white;
     }
 }
+
